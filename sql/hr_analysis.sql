@@ -102,10 +102,10 @@ WITH High_Risk AS (
 )
 SELECT
     COUNT(*) AS High_Risk_Count,
-    ROUND(SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END)
-        / COUNT(*) * 100, 2) AS Attrition_Rate,
+    ROUND(SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS Attrition_Rate,
     ROUND(AVG(MonthlyIncome), 2) AS Avg_Salary
 FROM High_Risk;
+-- What this tells us: Exact high risk employee segment.
 
 
  -- Salary Rank by Department (Window Function)
@@ -119,6 +119,7 @@ SELECT
 FROM hr_cleaned
 ORDER BY Department, Salary_Rank
 LIMIT 20;
+-- What this tells us: Who earns most in each department.
 
 
 
@@ -140,11 +141,10 @@ SELECT
     `Attrition Risk Score`,
     COUNT(*)AS Total_Employees,
     SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) AS Attrition_Count,
-    ROUND(SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END)
-        / COUNT(*) * 100, 2) AS Attrition_Rate
+    ROUND(SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS Attrition_Rate
 FROM hr_cleaned
 GROUP BY `Attrition Risk Score`
-ORDER BY `Attrition Risk Score` DESC;
+ORDER BY `Attrition Risk Score` DESC;	
 -- What this tells us: Higher risk score = higher attrition confirms our scoring model works.
 
 
